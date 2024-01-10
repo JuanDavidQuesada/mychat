@@ -9,8 +9,10 @@ const App = () => {
   const [connection, setConnection] = useState();
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
+  const [room, setRoom] = useState("");
   const joinRoom = async (user, room) => {
     try {
+      setRoom(room);
       const connection = new HubConnectionBuilder()
         .withUrl("https://localhost:7165/chat")
         .configureLogging(LogLevel.Information)
@@ -60,12 +62,15 @@ const App = () => {
       {!connection ? (
         <Lobby joinRoom={joinRoom} />
       ) : (
-        <Chat
-          messages={messages}
-          sendMessage={sendMessage}
-          closeConnection={closeConnection}
-          users={users}
-        />
+        <div>
+          <Chat
+            messages={messages}
+            sendMessage={sendMessage}
+            closeConnection={closeConnection}
+            users={users}
+            room={room}
+          />
+        </div>
       )}
     </div>
   );

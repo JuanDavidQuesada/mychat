@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const MessageContainer = ({ messages }) => {
+const MessageContainer = ({ messages, room }) => {
   const messageRef = useRef();
   useEffect(() => {
     if (messageRef && messageRef.current) {
@@ -15,6 +15,7 @@ const MessageContainer = ({ messages }) => {
   }, [messages]);
   return (
     <div ref={messageRef} className="message-container">
+      {room}
       {messages.map((m, index) => (
         <div key={index} className="user-message">
           <div className="message bg-primary">{m.message}</div>
